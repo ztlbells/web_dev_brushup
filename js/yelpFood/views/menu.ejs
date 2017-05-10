@@ -1,0 +1,10 @@
+<% include partials/header %>
+<h1> ~ Menu ~</h1>
+<a href = "/menu/form"> Add a New Food Here </a>
+<% menu.forEach(function(menu){%>
+	<div>
+	<h4> <%= menu.name %> </h4>
+	<img src= "<%= menu.image%>" >
+	</div>
+<%})%>
+<% include partials/footer %>
