@@ -1,10 +1,45 @@
 <% include partials/header %>
-<h1> ~ Menu ~</h1>
-<a href = "/menu/form"> Add a New Food Here </a>
-<% menu.forEach(function(menu){%>
-	<div>
-	<h4> <%= menu.name %> </h4>
-	<img src= "<%= menu.image%>" >
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" hrdf="/">YelpFood</a>
+				</div>
+			</div>
+		</nav>
+
+
+<div class = "container">
+	<header class = "jumbotron">
+		<div class = "container">
+			<h1> ~ Menu ~</h1>
+			<p> Here are several Mexico foods. </p>
+			<p>
+				<a class="btn btn-primary btn-large" href="/menu/form"> Add a New Food </a>
+			</p>
+		</div>
+	</header>
+ 
+	<div class = "row" style="display:flex; flex-wrap:wrap">
+		<div class="col-lg-12">
+			<h3> Our pop foods </h3>
+		</div>
+	
+
+		<% menu.forEach(function(menu){%>
+			<div class = "col-md-3 col-md-6">
+
+				<div class="thumbnail">
+					<img src= "<%= menu.image%>" >
+				</div>
+
+				<div class="caption">
+					<h4> <%= menu.name %> </h4>
+				</div>
+
+			</div>
+		<%})%>
+
 	</div>
-<%})%>
+
+</div>
 <% include partials/footer %>
