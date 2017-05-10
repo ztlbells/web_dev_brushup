@@ -57,11 +57,21 @@ app.get("/menu", function(req, res){
 
 // (2.2) POST method, where to send request to add sth in
 app.post("/menu", function(req, res){
-	//res.send("Post route hitted.");
+	// res.send("Post route hitted.");
 	// get data from forms and add them to the list shown on webpage
 	var name = req.body.name;
 	var image = req.body.image;
 	var newFood = {name:name, image:image};
+
+	// create a new food and save it to the database
+	yelpFood.create(newFood, function(err, yelpFood){
+		if(err){
+				console.log("Failed to create new food.");
+			} else{
+				console.log("Create new food successfully.");
+				console.log(yelpFood);
+			}
+	})
 	menu.push(newFood);
 	res.redirect("/menu");
 });
