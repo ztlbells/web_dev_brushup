@@ -1,10 +1,32 @@
-var express  = require("express");
-var bodyParser  = require("body-parser");
-var app = express();
+var express  	= require("express"),
+	app 		= express();
+	mongoose 	= require("mongoose"),
+	bodyParser  = require("body-parser");
 
+mongoose.connect("mongodb://localhost/yelp_food");
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
 
+// SCHEMA SETUP
+var yelpfoodSchema = new mongoose.Schema({
+	name: String,
+	image: String
+});
+
+var yelpFood = mongoose.model("yelpFood", yelpfoodSchema);
+
+//	yelpFood.create(
+//		{
+//			name: "Taco", 
+//			image: "https://static.wixstatic.com/media/e4c700_1dbf956321ba77faed6fe54164d3bc97.png/v1/fill/w_483,h_463,al_c,lg_1/e4c700_1dbf956321ba77faed6fe54164d3bc97.png"
+//		}, function(err, yelpFood){
+//			if(err){
+//				console.log("Failed to create new food.");
+//			} else{
+//				console.log("Create new food successfully.");
+//				console.log(yelpFood);
+//			}
+//		}); //
 // --------------------- routes ------------------------
 // (1) landing page
 app.get("/", function(req, res){
@@ -20,7 +42,16 @@ var menu = [
 
 // (2.1) GET method to show list
 app.get("/menu", function(req, res){
-	res.render("menu",{menu:menu});
+	//res.render("menu",{menu:menu});
+
+	//get all foods from db
+	yelpFood.find({}, function(err, yelpFood){
+		if(err){
+			console.log("Failed to search foods.");
+		} else{
+			res.render("menu",{menu:yelpFood});
+		}
+	});
 
 });
 
